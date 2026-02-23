@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="dune" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4a261"/>
+      <stop offset="1" stop-color="#e76f51"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#1a1a2e"/>
+  <path d="M6 46c10-12 24-18 52-18v10c-18 0-32 6-46 16z" fill="url(#dune)"/>
+  <circle cx="46" cy="18" r="6" fill="#e9c46a"/>
+  <path d="M46 8v20M36 18h20" stroke="#f4a261" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dune: War for Arrakis - Калькулятор боев</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dune: War for Arrakis</h1>
+            <p class="subtitle">Калькулятор боев</p>
+            <div class="header-actions">
+                <button class="clear-btn" id="clear-btn" type="button">Очистить</button>
+            </div>
+        </header>
+
+        <div class="battle-setup">
+            <div class="army-section attacker">
+                <h2>Нападающий</h2>
+                <div class="faction-selector">
+                    <label for="attacker-faction">Фракция</label>
+                    <select id="attacker-faction">
+                        <option value="">Выберите фракцию</option>
+                        <option value="atreides">Атрейдесы/Фримены</option>
+                        <option value="harkonnen">Харконены/Коррино</option>
+                    </select>
+                </div>
+                <div class="faction-selector">
+                    <label for="attacker-surprise-attack">Внезапная атака</label>
+                    <input type="checkbox" id="attacker-surprise-attack">
+                </div>
+                <div class="commander-selector" id="attacker-commander-wrapper" style="display: none;">
+                    <label class="commander-label">Командир</label>
+                    <div class="commander-options" id="attacker-commander-options"></div>
+                </div>
+                <div class="cards-config">
+                    <div class="cards-title">Карты</div>
+                    <div class="cards-row">
+                        <label for="attacker-hand-cards">В руке</label>
+                        <div class="card-controls">
+                            <button class="card-btn" data-card="attacker-hand-cards" data-action="decrease">−</button>
+                            <input type="number" id="attacker-hand-cards" min="0" value="0">
+                            <button class="card-btn" data-card="attacker-hand-cards" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="cards-row">
+                        <label for="attacker-discarded-cards">Сброшено для кубиков</label>
+                        <div class="card-controls">
+                            <button class="card-btn" data-card="attacker-discarded-cards" data-action="decrease">−</button>
+                            <input type="number" id="attacker-discarded-cards" min="0" value="0">
+                            <button class="card-btn" data-card="attacker-discarded-cards" data-action="increase">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="troops-config">
+                    <div class="troop-type">
+                        <label for="attacker-troop1" id="attacker-label1">Обычные</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="attacker-troop1" data-action="decrease">−</button>
+                            <input type="number" id="attacker-troop1" min="0" value="0">
+                            <button class="troop-btn" data-troop="attacker-troop1" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="troop-type">
+                        <label for="attacker-troop2" id="attacker-label2">Элитные</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="attacker-troop2" data-action="decrease">−</button>
+                            <input type="number" id="attacker-troop2" min="0" value="0">
+                            <button class="troop-btn" data-troop="attacker-troop2" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="troop-type">
+                        <label for="attacker-troop3" id="attacker-label3">Специальные</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="attacker-troop3" data-action="decrease">−</button>
+                            <input type="number" id="attacker-troop3" min="0" value="0">
+                            <button class="troop-btn" data-troop="attacker-troop3" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="troop-type">
+                        <label for="attacker-troop5" id="attacker-label5">Войска Космической гильдии</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="attacker-troop5" data-action="decrease">−</button>
+                            <input type="number" id="attacker-troop5" min="0" value="0">
+                            <button class="troop-btn" data-troop="attacker-troop5" data-action="increase">+</button>
+                        </div>
+                        <label class="troop-upgrade">
+                            <input type="checkbox" id="attacker-guild-upgrade">
+                            <span>Прокачка: отменяет защиту противника</span>
+                        </label>
+                    </div>
+                    <div class="troop-type">
+                        <label for="attacker-troop4" id="attacker-label4">Поддержка</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="attacker-troop4" data-action="decrease">−</button>
+                            <input type="number" id="attacker-troop4" min="0" value="0">
+                            <button class="troop-btn" data-troop="attacker-troop4" data-action="increase">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-dice">
+                    <strong>Всего кубиков: <span id="attacker-total">0</span></strong>
+                    <div class="dice-count" id="attacker-card-dice">Карты: 0 кубиков</div>
+                    <div class="dice-count">Всего жизней: <span id="attacker-health">0</span></div>
+                    <div class="dice-warning" id="attacker-warning" style="display: none;">
+                        <small>⚠ Максимум 6 кубиков</small>
+                    </div>
+                    <div class="dice-warning" id="attacker-unit-warning" style="display: none;">
+                        <small>⚠ Максимум 6 юнитов (обычные + элитные + спец. + гильдия; поддержка не входит)</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="army-section defender">
+                <h2>Защищающийся</h2>
+                <div class="faction-selector">
+                    <label for="defender-faction">Фракция</label>
+                    <select id="defender-faction">
+                        <option value="">Выберите фракцию</option>
+                        <option value="atreides">Атрейдесы/Фримены</option>
+                        <option value="harkonnen">Харконены/Коррино</option>
+                    </select>
+                </div>
+                <div class="faction-selector">
+                    <label for="defender-settlement">Поселение</label>
+                    <select id="defender-settlement">
+                        <option value="0">Без поселения</option>
+                        <option value="1">Поселение ранга 1 (+1 кубик)</option>
+                        <option value="2">Поселение ранга 2 (+2 кубика)</option>
+                        <option value="3">Поселение ранга 3 (+3 кубика)</option>
+                    </select>
+                </div>
+                <div class="commander-selector" id="defender-commander-wrapper" style="display: none;">
+                    <label class="commander-label">Командир</label>
+                    <div class="commander-options" id="defender-commander-options"></div>
+                </div>
+                <div class="cards-config">
+                    <div class="cards-title">Карты</div>
+                    <div class="cards-row">
+                        <label for="defender-hand-cards">В руке</label>
+                        <div class="card-controls">
+                            <button class="card-btn" data-card="defender-hand-cards" data-action="decrease">−</button>
+                            <input type="number" id="defender-hand-cards" min="0" value="0">
+                            <button class="card-btn" data-card="defender-hand-cards" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="cards-row">
+                        <label for="defender-discarded-cards">Сброшено для кубиков</label>
+                        <div class="card-controls">
+                            <button class="card-btn" data-card="defender-discarded-cards" data-action="decrease">−</button>
+                            <input type="number" id="defender-discarded-cards" min="0" value="0">
+                            <button class="card-btn" data-card="defender-discarded-cards" data-action="increase">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="troops-config">
+                    <div class="troop-type">
+                        <label for="defender-troop1" id="defender-label1">Обычные</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="defender-troop1" data-action="decrease">−</button>
+                            <input type="number" id="defender-troop1" min="0" value="0">
+                            <button class="troop-btn" data-troop="defender-troop1" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="troop-type">
+                        <label for="defender-troop2" id="defender-label2">Элитные</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="defender-troop2" data-action="decrease">−</button>
+                            <input type="number" id="defender-troop2" min="0" value="0">
+                            <button class="troop-btn" data-troop="defender-troop2" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="troop-type">
+                        <label for="defender-troop3" id="defender-label3">Специальные</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="defender-troop3" data-action="decrease">−</button>
+                            <input type="number" id="defender-troop3" min="0" value="0">
+                            <button class="troop-btn" data-troop="defender-troop3" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="troop-type">
+                        <label for="defender-troop5" id="defender-label5">Войска Космической гильдии</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="defender-troop5" data-action="decrease">−</button>
+                            <input type="number" id="defender-troop5" min="0" value="0">
+                            <button class="troop-btn" data-troop="defender-troop5" data-action="increase">+</button>
+                        </div>
+                        <label class="troop-upgrade">
+                            <input type="checkbox" id="defender-guild-upgrade">
+                            <span>Прокачка: отменяет защиту противника</span>
+                        </label>
+                    </div>
+                    <div class="troop-type">
+                        <label for="defender-troop4" id="defender-label4">Поддержка</label>
+                        <div class="troop-controls">
+                            <button class="troop-btn" data-troop="defender-troop4" data-action="decrease">−</button>
+                            <input type="number" id="defender-troop4" min="0" value="0">
+                            <button class="troop-btn" data-troop="defender-troop4" data-action="increase">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-dice">
+                    <strong>Всего кубиков: <span id="defender-total">0</span></strong>
+                    <div class="dice-count" id="defender-card-dice">Карты: 0 кубиков</div>
+                    <div class="dice-count" id="defender-settlement-dice">Поселение: 0 кубиков</div>
+                    <div class="dice-count">Всего жизней: <span id="defender-health">0</span></div>
+                    <div class="dice-warning" id="defender-warning" style="display: none;">
+                        <small>⚠ Максимум 6 кубиков</small>
+                    </div>
+                    <div class="dice-warning" id="defender-unit-warning" style="display: none;">
+                        <small>⚠ Максимум 6 юнитов (обычные + элитные + спец. + гильдия; поддержка не входит)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculate-section">
+            <button class="calculate-btn" id="calculate-btn">Рассчитать бой</button>
+        </div>
+
+        <div class="battle-results" id="battle-results" style="display: none;">
+            <h2>Результаты боя</h2>
+            <div class="results-details" id="results-details"></div>
+            <div class="calculation-logic" id="calculation-logic">
+                <button type="button" class="logic-toggle" id="logic-toggle" aria-expanded="false" aria-controls="logic-content">
+                    <span class="logic-toggle-icon" aria-hidden="true">▼</span>
+                    <span class="logic-toggle-text">Логика расчета</span>
+                </button>
+                <div class="logic-content" id="logic-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-result" id="floating-result" aria-live="polite">
+        <button class="floating-result-close" id="floating-result-close" type="button" aria-label="Закрыть">×</button>
+        <div class="floating-result-title">Итог боя</div>
+        <div class="floating-result-body" id="floating-result-body">Идёт расчет...</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
