@@ -1,3 +1,20 @@
+/* Dune: Arrakis sandy palette */
+:root {
+    --sand-bg-dark: #1a1510;
+    --sand-bg-mid: #2d2118;
+    --sand-bg-light: #3d2d1f;
+    --sand-card: rgba(212, 165, 116, 0.12);
+    --sand-border: rgba(196, 148, 106, 0.35);
+    --sand-border-strong: rgba(196, 148, 106, 0.4);
+    --sand-text: #e8dcc8;
+    --sand-text-muted: #a8987a;
+    --spice-gold: #e8b86d;
+    --spice-amber: #c9a86c;
+    --spice-accent: #e07c3c;
+    --faction-atreides: #3d9d8f;
+    --faction-harkonnen: #c95a3d;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,15 +23,28 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: #e8e8e8;
+    background: linear-gradient(135deg, var(--sand-bg-dark) 0%, var(--sand-bg-mid) 50%, var(--sand-bg-light) 100%);
+    color: var(--sand-text);
     min-height: 100vh;
     padding: 20px;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 header {
@@ -24,15 +54,19 @@ header {
 }
 
 header h1 {
+    font-family: 'Cinzel', serif;
     font-size: 2.5rem;
-    color: #f4a261;
+    font-weight: 700;
+    color: var(--spice-gold);
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .subtitle {
+    font-family: 'Cinzel', serif;
     font-size: 1.2rem;
-    color: #e9c46a;
+    font-weight: 400;
+    color: var(--spice-amber);
     opacity: 0.9;
 }
 
@@ -44,10 +78,10 @@ header h1 {
 
 .clear-btn {
     padding: 10px 18px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(212, 165, 116, 0.12);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 10px;
-    color: #e8e8e8;
+    color: var(--sand-text);
     font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
@@ -55,8 +89,8 @@ header h1 {
 }
 
 .clear-btn:hover {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(244, 162, 97, 0.55);
+    background: rgba(212, 165, 116, 0.2);
+    border-color: rgba(224, 124, 60, 0.55);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     transform: translateY(-1px);
 }
@@ -77,47 +111,50 @@ header h1 {
 }
 
 .army-section {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--sand-card);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 12px;
     padding: 25px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     display: grid;
     grid-template-rows: auto auto auto auto auto auto 1fr;
     gap: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .army-section h2 {
+    font-family: 'Cinzel', serif;
     font-size: 1.5rem;
+    font-weight: 600;
     margin-bottom: 20px;
     text-align: center;
     padding-bottom: 15px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid var(--sand-border);
     grid-row: 1;
 }
 
 /* Цвет по фракции (при выборе фракции) */
 .army-section.faction-atreides h2 {
-    color: #2a9d8f;
+    color: var(--faction-atreides);
 }
 
 .army-section.faction-harkonnen h2 {
-    color: #e76f51;
+    color: var(--faction-harkonnen);
 }
 
 /* Цвет по умолчанию, когда фракция не выбрана */
 .army-section.attacker:not(.faction-atreides):not(.faction-harkonnen) h2 {
-    color: #e76f51;
+    color: var(--faction-harkonnen);
 }
 
 .army-section.defender:not(.faction-atreides):not(.faction-harkonnen) h2 {
-    color: #2a9d8f;
+    color: var(--faction-atreides);
 }
 
 .faction-selector {
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(196, 148, 106, 0.25);
     min-height: 95px;
     display: flex;
     flex-direction: column;
@@ -137,7 +174,7 @@ header h1 {
     grid-row: 4;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(196, 148, 106, 0.25);
     height: 360px;
 }
 
@@ -145,7 +182,7 @@ header h1 {
     grid-row: 5;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(196, 148, 106, 0.25);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -153,7 +190,7 @@ header h1 {
 
 .cards-title {
     font-size: 0.95rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     font-weight: 500;
     text-align: center;
 }
@@ -167,7 +204,7 @@ header h1 {
 
 .cards-row label {
     font-size: 0.9rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     font-weight: 500;
     text-align: center;
 }
@@ -175,11 +212,11 @@ header h1 {
 .cards-row input {
     flex: 1;
     min-width: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(212, 165, 116, 0.15);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 8px;
     padding: 10px;
-    color: #e8e8e8;
+    color: var(--sand-text);
     font-size: 1rem;
     text-align: center;
     transition: all 0.3s ease;
@@ -187,15 +224,15 @@ header h1 {
 
 .cards-row input:focus {
     outline: none;
-    border-color: #f4a261;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.2);
+    border-color: var(--spice-accent);
+    background: rgba(212, 165, 116, 0.22);
+    box-shadow: 0 0 0 3px rgba(224, 124, 60, 0.25);
 }
 
 .commander-label {
     display: block;
     font-size: 0.95rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     margin-bottom: 10px;
     font-weight: 500;
     text-align: center;
@@ -212,7 +249,7 @@ header h1 {
     align-items: center;
     gap: 10px;
     font-size: 0.9rem;
-    color: #e8e8e8;
+    color: var(--sand-text);
     cursor: pointer;
     padding: 4px 0;
 }
@@ -220,7 +257,7 @@ header h1 {
 .commander-option input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: #f4a261;
+    accent-color: var(--spice-accent);
     flex-shrink: 0;
 }
 
@@ -234,13 +271,13 @@ header h1 {
 }
 
 .commander-option:hover {
-    color: #f4a261;
+    color: var(--spice-accent);
 }
 
 .faction-selector label {
     display: block;
     font-size: 0.95rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     margin-bottom: 8px;
     font-weight: 500;
     text-align: center;
@@ -249,7 +286,7 @@ header h1 {
 #attacker-surprise-attack {
     width: 22px;
     height: 22px;
-    accent-color: #f4a261;
+    accent-color: var(--spice-accent);
     align-self: center;
 }
 
@@ -270,10 +307,10 @@ header h1 {
     min-width: 40px;
     min-height: 40px;
     padding: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(212, 165, 116, 0.15);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 8px;
-    color: #e8e8e8;
+    color: var(--sand-text);
     font-size: 1.4rem;
     font-weight: bold;
     cursor: pointer;
@@ -285,8 +322,9 @@ header h1 {
 }
 
 .card-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: #f4a261;
+    background: rgba(212, 165, 116, 0.25);
+    border-color: var(--spice-accent);
+    box-shadow: 0 0 12px rgba(224, 124, 60, 0.25);
     transform: scale(1.05);
 }
 
@@ -296,11 +334,11 @@ header h1 {
 
 .faction-selector select {
     width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(212, 165, 116, 0.15);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 8px;
     padding: 12px;
-    color: #e8e8e8;
+    color: var(--sand-text);
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -308,14 +346,14 @@ header h1 {
 
 .faction-selector select:focus {
     outline: none;
-    border-color: #f4a261;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.2);
+    border-color: var(--spice-accent);
+    background: rgba(212, 165, 116, 0.22);
+    box-shadow: 0 0 0 3px rgba(224, 124, 60, 0.25);
 }
 
 .faction-selector select option {
-    background: #1a1a2e;
-    color: #e8e8e8;
+    background: var(--sand-bg-mid);
+    color: var(--sand-text);
 }
 
 .troops-config {
@@ -350,10 +388,10 @@ header h1 {
     min-width: 52px;
     min-height: 52px;
     padding: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(212, 165, 116, 0.15);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 10px;
-    color: #e8e8e8;
+    color: var(--sand-text);
     font-size: 1.75rem;
     font-weight: bold;
     cursor: pointer;
@@ -365,8 +403,9 @@ header h1 {
 }
 
 .troop-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: #f4a261;
+    background: rgba(212, 165, 116, 0.25);
+    border-color: var(--spice-accent);
+    box-shadow: 0 0 12px rgba(224, 124, 60, 0.25);
     transform: scale(1.05);
 }
 
@@ -376,26 +415,26 @@ header h1 {
 
 .troop-type label {
     font-size: 0.95rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     font-weight: 500;
     text-align: center;
 }
 
 .troop-type input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(212, 165, 116, 0.15);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 8px;
     padding: 12px;
-    color: #e8e8e8;
+    color: var(--sand-text);
     font-size: 1.1rem;
     transition: all 0.3s ease;
 }
 
 .troop-type input:focus {
     outline: none;
-    border-color: #f4a261;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.2);
+    border-color: var(--spice-accent);
+    background: rgba(212, 165, 116, 0.22);
+    box-shadow: 0 0 0 3px rgba(224, 124, 60, 0.25);
 }
 
 .troop-upgrade {
@@ -404,7 +443,7 @@ header h1 {
     justify-content: center;
     gap: 8px;
     font-size: 0.85rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     cursor: pointer;
     user-select: none;
 }
@@ -412,7 +451,7 @@ header h1 {
 .troop-upgrade input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    accent-color: #f4a261;
+    accent-color: var(--spice-accent);
 }
 
 /* Скрываем стрелочки вверх/вниз у поля числа — остаются только кнопки +/− */
@@ -430,7 +469,7 @@ header h1 {
 
 .dice-count {
     font-size: 0.9rem;
-    color: #e9c46a;
+    color: var(--spice-amber);
     font-weight: 500;
     padding-left: 4px;
 }
@@ -438,11 +477,11 @@ header h1 {
 .total-dice {
     grid-row: 7;
     align-self: end;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(212, 165, 116, 0.08);
     border-radius: 8px;
     padding: 15px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--sand-border);
 }
 
 /* Скрываем стрелочки вверх/вниз у полей чисел карточек */
@@ -460,18 +499,18 @@ header h1 {
 
 .total-dice strong {
     font-size: 1.2rem;
-    color: #f4a261;
+    color: var(--spice-accent);
 }
 
 .total-dice span {
     font-size: 1.4rem;
-    color: #e9c46a;
+    color: var(--spice-amber);
     font-weight: bold;
 }
 
 .dice-warning {
     margin-top: 8px;
-    color: #e76f51;
+    color: var(--faction-harkonnen);
     font-weight: 500;
 }
 
@@ -482,20 +521,23 @@ header h1 {
 
 .battle-results {
     margin-top: 30px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--sand-card);
+    border: 1px solid var(--sand-border-strong);
     border-radius: 12px;
     padding: 30px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .battle-results h2 {
+    font-family: 'Cinzel', serif;
     text-align: center;
     font-size: 1.8rem;
-    color: #f4a261;
+    font-weight: 600;
+    color: var(--spice-gold);
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid var(--sand-border);
 }
 
 .results-grid {
@@ -506,7 +548,8 @@ header h1 {
 }
 
 .result-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(212, 165, 116, 0.08);
+    border: 1px solid var(--sand-border);
     border-radius: 8px;
     padding: 20px;
     text-align: center;
@@ -515,28 +558,28 @@ header h1 {
 .result-card h3 {
     font-size: 1.2rem;
     margin-bottom: 15px;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
 }
 
 .attacker-result h3 {
-    color: #e76f51;
+    color: var(--faction-harkonnen);
 }
 
 .defender-result h3 {
-    color: #2a9d8f;
+    color: var(--faction-atreides);
 }
 
 .probability-value {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 15px;
-    color: #f4a261;
+    color: var(--spice-accent);
 }
 
 .probability-bar {
     width: 100%;
     height: 30px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(196, 148, 106, 0.2);
     border-radius: 15px;
     overflow: hidden;
     position: relative;
@@ -549,20 +592,20 @@ header h1 {
 }
 
 .attacker-fill {
-    background: linear-gradient(90deg, #e76f51, #f4a261);
+    background: linear-gradient(90deg, var(--faction-harkonnen), var(--spice-accent));
 }
 
 .defender-fill {
-    background: linear-gradient(90deg, #2a9d8f, #4ecdc4);
+    background: linear-gradient(90deg, var(--faction-atreides), #4ecdc4);
 }
 
 .results-details {
     margin-top: 20px;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(212, 165, 116, 0.06);
     border-radius: 8px;
     font-size: 0.9rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     line-height: 1.6;
 }
 
@@ -570,8 +613,8 @@ header h1 {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: rgba(244, 162, 97, 0.08);
-    border: 1px solid rgba(244, 162, 97, 0.35);
+    background: rgba(224, 124, 60, 0.1);
+    border: 1px solid rgba(224, 124, 60, 0.4);
     border-radius: 10px;
     padding: 18px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
@@ -580,7 +623,7 @@ header h1 {
 .damage-title {
     font-size: 1.15rem;
     font-weight: 800;
-    color: #f4a261;
+    color: var(--spice-accent);
     text-align: center;
 }
 
@@ -594,26 +637,26 @@ header h1 {
 
 .damage-label {
     font-weight: 700;
-    color: #e9c46a;
+    color: var(--spice-amber);
 }
 
 .damage-value {
     font-weight: 800;
     font-size: 1.15rem;
-    color: #f4a261;
+    color: var(--spice-accent);
 }
 
 .damage-mean {
     font-weight: 900;
     font-size: 1.35em;
-    color: #e9c46a;
+    color: var(--spice-amber);
 }
 
 .damage-method {
     margin-top: 12px;
     font-size: 0.9rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: var(--sand-text-muted);
 }
 
 .damage-method:first-of-type {
@@ -628,7 +671,7 @@ header h1 {
     margin-top: 8px;
     font-size: 0.85rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: var(--sand-text-muted);
 }
 
 .floating-method:first-of-type {
@@ -637,9 +680,9 @@ header h1 {
 
 .calculation-logic {
     margin-top: 25px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(212, 165, 116, 0.08);
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--sand-border);
 }
 
 .logic-toggle {
@@ -651,7 +694,7 @@ header h1 {
     background: transparent;
     border: none;
     border-radius: 8px;
-    color: #f4a261;
+    color: var(--spice-accent);
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
@@ -660,12 +703,12 @@ header h1 {
 }
 
 .logic-toggle:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(212, 165, 116, 0.1);
 }
 
 .logic-toggle:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(244, 162, 97, 0.3);
+    box-shadow: 0 0 0 2px rgba(224, 124, 60, 0.3);
 }
 
 .logic-toggle-icon {
@@ -680,7 +723,7 @@ header h1 {
 
 .logic-content {
     font-size: 0.9rem;
-    color: #b8b8b8;
+    color: var(--sand-text-muted);
     line-height: 1.8;
     padding: 0 20px 20px;
     max-height: 0;
@@ -696,12 +739,12 @@ header h1 {
 .logic-section {
     margin-bottom: 20px;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(212, 165, 116, 0.06);
     border-radius: 6px;
 }
 
 .logic-section h4 {
-    color: #e9c46a;
+    color: var(--spice-amber);
     margin-bottom: 10px;
     font-size: 1rem;
 }
@@ -716,11 +759,11 @@ header h1 {
     content: "•";
     position: absolute;
     left: 0;
-    color: #f4a261;
+    color: var(--spice-accent);
 }
 
 .logic-highlight {
-    color: #f4a261;
+    color: var(--spice-accent);
     font-weight: bold;
 }
 
@@ -730,25 +773,26 @@ header h1 {
     border-radius: 4px;
     margin: 10px 0;
     font-family: 'Courier New', monospace;
-    color: #e9c46a;
+    color: var(--spice-amber);
 }
 
 .calculate-btn {
     padding: 15px 40px;
-    background: linear-gradient(135deg, #f4a261, #e76f51);
+    background: linear-gradient(135deg, var(--spice-accent), var(--faction-harkonnen));
     border: none;
     border-radius: 8px;
-    color: #1a1a2e;
+    color: var(--sand-text);
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 250px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .calculate-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(244, 162, 97, 0.4);
+    box-shadow: 0 5px 15px rgba(224, 124, 60, 0.45);
 }
 
 .calculate-btn:active {
@@ -766,8 +810,8 @@ header h1 {
     right: 24px;
     bottom: 24px;
     width: min(360px, calc(100vw - 32px));
-    background: rgba(18, 18, 33, 0.96);
-    border: 1px solid rgba(244, 162, 97, 0.45);
+    background: rgba(45, 33, 24, 0.97);
+    border: 1px solid rgba(224, 124, 60, 0.5);
     border-radius: 12px;
     padding: 16px 18px 14px;
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
@@ -788,7 +832,7 @@ header h1 {
 }
 
 .floating-result-title {
-    color: #f4a261;
+    color: var(--spice-accent);
     font-weight: 800;
     font-size: 1.05rem;
     margin-bottom: 10px;
@@ -796,7 +840,7 @@ header h1 {
 }
 
 .floating-result-body {
-    color: #e8e8e8;
+    color: var(--sand-text);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -809,15 +853,15 @@ header h1 {
     height: 26px;
     border: none;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: #e8e8e8;
+    background: rgba(212, 165, 116, 0.15);
+    color: var(--sand-text);
     cursor: pointer;
     font-size: 1.1rem;
     line-height: 1;
 }
 
 .floating-result-close:hover {
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(212, 165, 116, 0.25);
 }
 
 @media (max-width: 768px) {
