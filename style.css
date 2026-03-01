@@ -21,6 +21,11 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    overflow-x: hidden;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: linear-gradient(135deg, var(--sand-bg-dark) 0%, var(--sand-bg-mid) 50%, var(--sand-bg-light) 100%);
@@ -307,7 +312,7 @@ header h1 {
     min-width: 40px;
     min-height: 40px;
     padding: 0;
-    background: rgba(212, 165, 116, 0.15);
+    background: rgba(212, 165, 116, 0.12);
     border: 1px solid var(--sand-border-strong);
     border-radius: 8px;
     color: var(--sand-text);
@@ -322,14 +327,14 @@ header h1 {
 }
 
 .card-btn:hover {
-    background: rgba(212, 165, 116, 0.25);
-    border-color: var(--spice-accent);
-    box-shadow: 0 0 12px rgba(224, 124, 60, 0.25);
-    transform: scale(1.05);
+    background: rgba(212, 165, 116, 0.2);
+    border-color: rgba(224, 124, 60, 0.55);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
 }
 
 .card-btn:active {
-    transform: scale(0.98);
+    transform: translateY(0);
 }
 
 .faction-selector select {
@@ -388,7 +393,7 @@ header h1 {
     min-width: 52px;
     min-height: 52px;
     padding: 0;
-    background: rgba(212, 165, 116, 0.15);
+    background: rgba(212, 165, 116, 0.12);
     border: 1px solid var(--sand-border-strong);
     border-radius: 10px;
     color: var(--sand-text);
@@ -403,14 +408,14 @@ header h1 {
 }
 
 .troop-btn:hover {
-    background: rgba(212, 165, 116, 0.25);
-    border-color: var(--spice-accent);
-    box-shadow: 0 0 12px rgba(224, 124, 60, 0.25);
-    transform: scale(1.05);
+    background: rgba(212, 165, 116, 0.2);
+    border-color: rgba(224, 124, 60, 0.55);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
 }
 
 .troop-btn:active {
-    transform: scale(0.98);
+    transform: translateY(0);
 }
 
 .troop-type label {
@@ -865,8 +870,24 @@ header h1 {
 }
 
 @media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
     .battle-setup {
         grid-template-columns: 1fr;
+    }
+
+    .army-section {
+        padding: 16px;
+    }
+
+    .cards-row {
+        grid-template-columns: 1fr;
+    }
+
+    .cards-row label {
+        text-align: center;
     }
 
     header h1 {
